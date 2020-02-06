@@ -1,0 +1,55 @@
+// font-size:12px -> 28px
+.generate-text-size(@n, @i: 12) when (@i =< @n) {
+    .text-@{i} {
+        font-size: 1px*@i;
+    }
+    .generate-text-size(@n, (@i + 2));
+}
+
+.generate-text-size(28);
+
+// margin-right   2px -> 100px
+.generate-margin-right(@n, @i: 2) when (@i =< @n) {
+    .mr-@{i} {
+        margin-right: 1px*@i !important;
+    }
+    .generate-margin-right(@n, (@i + 2));
+}
+
+.generate-margin-right(100);
+
+// margin-bottom   2px -> 100px
+.generate-margin-bottom(@n, @i: 2) when (@i =< @n) {
+    .mb-@{i} {
+        margin-bottom: 1px*@i !important;
+    }
+    .generate-margin-bottom(@n, (@i + 2));
+}
+
+.generate-margin-bottom(100);
+
+@font-family-medium: "PingFangSC-Medium", "Microsoft YaHei", Helvetica, Tahoma, Arial,
+    "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+@font-family-regular: "PingFangSC-Regular", "Microsoft YaHei", Helvetica, Tahoma, Arial,
+    "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+
+.font-class(@fontFamily, @fontSize, @fontColor) {
+    font-family: @fontFamily;
+    font-size: @fontSize;
+    color: @fontColor;
+    letter-spacing: 0;
+}
+
+.font-normal(@size: 14px, @color: @dark, @isBold: false) {
+    .font-class(@font-family-medium, @size, @color);
+    & when (@isBold) {
+        font-weight: bold;
+    };
+}
+
+.font-large(@size: 14px, @color: @dark, @isBold: false) {
+    .font-class(@font-family-regular, @size, @color);
+    & when (@isBold) {
+        font-weight: bold;
+    };
+}

@@ -1,5 +1,9 @@
 #dependencies
 node_modules
+build
+
+# output
+stats.json
 
 # log files
 yarn-error.log
