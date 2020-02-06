@@ -104,30 +104,38 @@ project
 ```
 
 ## 更新历史
+-   v1.2.0 —— 2020-02-06
+    -   提取公共App.js、mixins
 
--   v0.0.1 —— 2019-08-20
-    -   模板项目雏形
-    -   引入 hooks 参考 doc/hook.md
-    -   优化axios目录结构
+-   v1.1.8 —— 2019-12-20
+    -   四类请求方式传入headers无效问题
 
--   v0.0.2 —— 2019-08-21
-    -   优化axios，对Server错误进行统一处理
-    -   语义化Server Code
-    -   支持全局引入"variables.less"
+-   v1.1.7 —— 2019-11-25
+    -   移除addLoadable，所有路由组件改为懒加载（IE无法通过component.name区分）
+    
+-   v1.1.6 —— 2019-11-13
+    -   优化DLL配置 & 全局配置浏览器常量
+    -   配置Axios中rootURL在生产环境下调用的api为绝对路径
+    -   引入data-wrapper通用业务组件（可复用页面空态）
 
--   v0.0.3 —— 2019-08-27
-    -   优化axios响应拦截器，直接返回response.data至业务层
+-   v1.1.5 —— 2019-10-31
+    -   修复useFetch中dispatch依赖重新定义问题
 
--   v0.0.4 —— 2019-08-28
-    -   增加全局样式
-    -   优化布局方案
-    -   国际化方案
+-   v1.1.4 —— 2019-10-27
+    -   移除国际化配置
+    -   修复iconfont无效问题
 
--   v1.0.0 —— 2019-10-10
-    -   支持多层子路由渲染（`<Routes />`）
-    -   支持热更新
-    -   优化目录结构（router、constans等）
-    -   优化组件懒加载的使用方式
+-   v1.1.3 —— 2019-10-22
+    -   在入口文件index.js中引入全局less
+
+-   v1.1.2 —— 2019-10-21
+    -   引入style-resources-loader & 移除方法getLessVariables
+    -   支持Less Parametric Mixins（带参数的混合：.font-normal）
+
+-   v1.1.1 —— 2019-10-20
+    -   统一改为BrowserRouter（按需引入，参考intro）
+    -   修复`<Routes />`无法传参的bug
+    -   自动扫描入口文件、HTML模板动态生成
 
 -   v1.1.0 —— 2019-10-15
     -   引入HappyPack
@@ -135,38 +143,30 @@ project
     -   将antd打包进vendor（仅在开发模式下）
     -   将antd的默认加载图标改为按需加载（src/utils/antd-icon.js）
 
--   v1.1.1 —— 2019-10-20
-    -   统一改为BrowserRouter（按需引入，参考intro）
-    -   修复`<Routes />`无法传参的bug
-    -   自动扫描入口文件、HTML模板动态生成
+-   v1.0.0 —— 2019-10-10
+    -   支持多层子路由渲染（`<Routes />`）
+    -   支持热更新
+    -   优化目录结构（router、constans等）
+    -   优化组件懒加载的使用方式
 
--   v1.1.2 —— 2019-10-21
-    -   引入style-resources-loader & 移除方法getLessVariables
-    -   支持Less Parametric Mixins（带参数的混合：.font-normal）
+-   v0.0.4 —— 2019-08-28
+    -   增加全局样式
+    -   优化布局方案
+    -   国际化方案
 
--   v1.1.3 —— 2019-10-22
-    -   在入口文件index.js中引入全局less
+-   v0.0.3 —— 2019-08-27
+    -   优化axios响应拦截器，直接返回response.data至业务层
 
--   v1.1.4 —— 2019-10-27
-    -   移除国际化配置
-    -   修复iconfont无效问题
+-   v0.0.2 —— 2019-08-21
+    -   优化axios，对Server错误进行统一处理
+    -   语义化Server Code
+    -   支持全局引入"variables.less"
 
--   v1.1.5 —— 2019-10-31
-    -   修复useFetch中dispatch依赖重新定义问题
-    
--   v1.1.6 —— 2019-11-13
-    -   优化DLL配置 & 全局配置浏览器常量
-    -   配置Axios中rootURL在生产环境下调用的api为绝对路径
-    -   引入data-wrapper通用业务组件（可复用页面空态）
+-   v0.0.1 —— 2019-08-20
+    -   模板项目雏形
+    -   引入 hooks 参考 doc/hook.md
+    -   优化axios目录结构
 
--   v1.1.7 —— 2019-11-25
-    -   移除addLoadable，所有路由组件改为懒加载（IE无法通过component.name区分）
-
--   v1.1.8 —— 2019-12-20
-    -   四类请求方式传入headers无效问题
-
--   v1.2.0 —— 2020-02-06
-    -   提取公共App.js、mixins
 
 
 ## License
