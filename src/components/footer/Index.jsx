@@ -5,7 +5,7 @@ import './index.less';
 function Footer(props) {
     return (
         <div className="m-footer">
-            <span>A project template for React v16.9.0 © Ehr FED</span>
+            <span>Project Template with React v16.9.0 © Ehr FED, 2020</span>
         </div>
     );
 }
