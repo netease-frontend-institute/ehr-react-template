@@ -5,8 +5,8 @@
 这是一款深受EHR同学喜爱的、**基于 React + Webpack**基础配置的前端脚手架。
 
 ## 种类
- - [单页（single page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/feature/single-page)
- - [多页（multiple page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/feature/multi-pages)
+ - [单页（single page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/single-page)
+ - [多页（multiple page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/multi-pages)
  - [响应式-多页（responsive & multiple page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/feature/responsive-multi-pages)
 
 ## 已支持
