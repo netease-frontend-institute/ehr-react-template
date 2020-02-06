@@ -1,25 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Routes, { getSubList } from '@/router/tools';
-import { Button } from 'antd';
 import './index.less';
 
-function InroCompany(props) {
-    const LinkMap = getSubList(props);
-
+function IntroBu(props) {
     return (
         <div className="m-company">
-            公司介绍页
-            <ul className="link-wrapper">
-                {LinkMap.map(item => (
-                    <Link key={item.link} to={item.link}>
-                        <Button>{item.title}</Button>
-                    </Link>
-                ))}
-            </ul>
-            <Routes {...props} />
+            网易公司（NASDAQ: NTES）是中国的互联网公司，利用互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”。创始人兼CEO是丁磊。
         </div>
     );
 }
 
-export default InroCompany;
+export default IntroBu;

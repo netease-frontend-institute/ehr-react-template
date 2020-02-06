@@ -1,24 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import Routes, { getSubList } from '@/router/tools';
-import { Button } from 'antd';
+import { Menu } from 'antd';
 import './index.less';
 
+const { Item } = Menu;
+
 function IntroIndex(props) {
+    const { history } = props;
     const LinkMap = getSubList(props);
+
+    const [selectedKey, setSelectedKey] = useState('');
+
+    const onClick = e => {
+        history.push(e.key);
+        setSelectedKey(e.key);
+    };
 
     return (
         <div className="m-intro-index">
-            介绍种类菜单
-            <ul className="link-wrapper">
-                {LinkMap.map(item => {
-                    return (
-                        <Link key={item.link} to={item.link}>
-                            <Button>{item.title}</Button>
-                        </Link>
-                    );
-                })}
-            </ul>
+            <Menu onClick={onClick} selectedKeys={[selectedKey]} mode="horizontal">
+                {LinkMap.map(item => (
+                    <Item key={item.link}>{item.title}</Item>
+                ))}
+            </Menu>
+
             <Routes {...props} />
         </div>
     );

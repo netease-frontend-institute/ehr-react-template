@@ -22,24 +22,24 @@ const routes = {
                 {
                     link: '/company',
                     title: '公司介绍',
-                    component: () => import('@/view/intro/company/Index.jsx'),
-                    sub: [
-                        {
-                            link: '/company/a',
-                            title: 'a公司介绍',
-                            component: () => import('@/view/intro/company/a/Index.jsx')
-                        },
-                        {
-                            link: '/company/b',
-                            title: 'b公司介绍',
-                            component: () => import('@/view/intro/company/b/Index.jsx')
-                        }
-                    ]
+                    component: () => import('@/view/intro/company/Index.jsx')
                 },
                 {
                     link: '/bu',
                     title: '业务介绍',
-                    component: () => import('@/view/intro/bu/Index.jsx')
+                    component: () => import('@/view/intro/bu/Index.jsx'),
+                    sub: [
+                        {
+                            link: '/bu/music',
+                            title: '音乐',
+                            component: () => import('@/view/intro/bu/music/Index.jsx')
+                        },
+                        {
+                            link: '/bu/game',
+                            title: '游戏',
+                            component: () => import('@/view/intro/bu/game/Index.jsx')
+                        }
+                    ]
                 }
             ]
         }
