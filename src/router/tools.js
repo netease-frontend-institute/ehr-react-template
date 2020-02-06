@@ -26,7 +26,6 @@ import allRoutes from '@/router';
 
 // const lazy = loader => Loadable({ loader, loading: ULoading });
 const SuspenseComponent = Component => props => {
-    console.log(props, 2);
     return (
         <Suspense fallback={null}>
             <Component {...props}></Component>

@@ -165,6 +165,9 @@ project
 -   v1.1.8 —— 2019-12-20
     -   四类请求方式传入headers无效问题
 
+-   v1.2.0 —— 2020-02-06
+    -   提取公共App.js、mixins
+
 
 ## License
 

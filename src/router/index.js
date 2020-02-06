@@ -5,6 +5,13 @@
 
 const routes = {
     // key为entryName
+    index: [
+        {
+            link: '/',
+            title: '首页',
+            component: () => import('@/view/index/Index.jsx')
+        }
+    ],
     intro: [
         {
             link: '/',
