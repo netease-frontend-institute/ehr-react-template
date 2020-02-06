@@ -6,8 +6,8 @@
 
 ## 种类
  - [单页（single page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/single-page)
- - [多页（multiple page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/multi-pages)
- - [响应式-多页（responsive & multiple page application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/feature/responsive-multi-pages)
+ - [多页（multiple pages application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/multi-pages)
+ - [响应式-多页（responsive & multiple pages application）](https://github.com/netease-frontend-institute/ehr-react-template/tree/feature/responsive-multi-pages)
 
 ## 已支持
 
