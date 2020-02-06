@@ -1,13 +1,24 @@
-const { getRewrites } = require('./tools');
+const { entries } = require('./tools');
+const entry = process.env.ENTRY;
+const openPage = entry ? `${entry}.html` : `${Object.keys(entries)[0]}.html`;
 
 module.exports = {
+    openPage,
     host: process.env.HOST, // 默认是：localhost
     port: process.env.PORT, // 默认是：8080
     open: true, // 浏览器自启动
     overlay: true, // 开启浏览器端的错误浮层功能
     hot: true,
     historyApiFallback: {
-        rewrites: getRewrites()
+        // 使用HTML5 History API（即BrowserRouter）时，必须提供index.html页面来代替任何404响应。
+        rewrites: (() => {
+            const rewrites = [];
+            for (let [entryName] of Object.entries(entries)) {
+                let regex = eval('/^\\/' + entryName + '/');
+                rewrites.push({ from: regex, to: `/${entryName}.html` });
+            }
+            return rewrites;
+        })()
     },
     before() {
         console.clear();
@@ -39,7 +50,7 @@ module.exports = {
         }
     },
     watchOptions: {
-        aggregateTimeout: 300,
+        aggregateTimeout: 0,
         poll: 1000
     },
     stats: {

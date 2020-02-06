@@ -2,11 +2,11 @@ const path = require('path');
 const paths = require('./paths');
 const webpack = require('webpack');
 const WebpackBar = require('webpackbar');
-const { getEntry, getHtmlWebpackPluginConfigs } = require('./tools');
+const { entries, getHtmlWebpackPluginConfigs } = require('./tools');
 const { isProduction } = require('./env');
 
 module.exports = {
-    entry: getEntry(),
+    entry: entries,
     externals: {
         // 将CDN形式加载的包从打包范围中移除（业务层的引入方式不变）
         lodash: '_',
@@ -28,6 +28,7 @@ module.exports = {
     plugins: [
         // 定义（浏览器环境下的）全局常量
         new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),
+
         // 动态生成html模板插件配置
         ...getHtmlWebpackPluginConfigs(),
 

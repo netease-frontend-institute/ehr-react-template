@@ -1,3 +1,4 @@
+const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 const paths = require('./paths');
@@ -6,24 +7,46 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 动态扫描入口文件
 const getEntry = () => {
-    let entry = {};
-    glob.sync(path.resolve(paths.appSrc, 'view/**/index.js')).forEach(function(fileDir) {
+    let entries = {};
+    let polyfillPath = '@babel/polyfill';
+    glob.sync(path.resolve(paths.appSrc, 'view/*/index.js')).forEach(function(fileDir) {
         let pathObj = path.parse(fileDir);
         let entryName = pathObj.dir.match(/\/[\w-]+$/g)[0].split('/')[1]; // 用文件夹名字作为入口名。
-        entry[entryName] = fileDir;
+        entries[entryName] = [polyfillPath, fileDir];
     });
-    return entry;
+
+    // 仅返回指定的入口文件
+    const singleEntry = process.env.ENTRY;
+    if (singleEntry && entries[singleEntry]) {
+        return {
+            [singleEntry]: entries[singleEntry]
+        };
+    }
+    return entries;
 };
+
+// 入口集合（防止执行多次getEntry）
+const entries = getEntry();
 
 // 动态生成模板文件
 const getHtmlWebpackPluginConfigs = () => {
-    const entry = getEntry();
-    const res = [];
-    for (let [entryName] of Object.entries(entry)) {
+    let htmlPlugins = [];
+
+    for (let [entryName] of Object.entries(entries)) {
+        const appPath = path.join(process.cwd(), './src');
+        let htmlFilePath = `${appPath}/view/${entryName}/index.html`;
+
+        // 若在当前view里找不到对应index.html，则使用public的
+        if (!fs.existsSync(htmlFilePath)) {
+            htmlFilePath = paths.appHtml;
+        }
+
         const plugin = new HtmlWebpackPlugin({
-            template: paths.appHtml,
+            inject: true,
+            hash: false,
+            template: htmlFilePath,
             filename: `${entryName}.html`,
-            chunks: ['vendor', 'common', entryName],
+            chunks: ['commons', 'chunk-antd', 'styles', entryName],
             favicon: paths.appFavicon,
             templateParameters: {
                 AntdDllSlot: !env.isProduction ? `<script src="/vendor/antd.dll.js"></script>` : '',
@@ -46,21 +69,9 @@ const getHtmlWebpackPluginConfigs = () => {
                   }
                 : {})
         });
-        res.push(plugin);
+        htmlPlugins.push(plugin);
     }
-    return res;
-};
-
-// 动态扫描404代替文件
-// （使用HTML5 History API（即BrowserRouter）时，必须提供index.html页面来代替任何404响应。）
-const getRewrites = () => {
-    const entry = getEntry();
-    const rewrites = [];
-    for (let [entryName] of Object.entries(entry)) {
-        let regex = eval('/^\\/' + entryName + '/');
-        rewrites.push({ from: regex, to: `/${entryName}.html` });
-    }
-    return rewrites;
+    return htmlPlugins;
 };
 
 // 插件：保存时clear日志
@@ -87,8 +98,8 @@ class CleanTerminalPlugin {
 }
 
 module.exports = {
+    entries,
     getEntry,
     getHtmlWebpackPluginConfigs,
-    getRewrites,
     CleanTerminalPlugin
 };
