@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import './index.less';
 
-const LinkMap = [
-    {
-        link: '/app/index',
-        name: '首页'
-    },
-    {
-        link: '/app/intro',
-        name: '介绍页'
-    }
-];
+const { Item } = Menu;
+
+const getRouteName = () => {
+    let result = /^(.*)\/(.)*/.exec(location.pathname);
+    let entryName = result !== null ? result[1] : '';
+    return entryName === '/app' ? '/app/index' : entryName;
+};
 
 function Header(props) {
+    const { history } = props;
+    const [selectedKey, setSelectedKey] = useState(getRouteName());
+
+    const onClick = e => {
+        setSelectedKey(e.key);
+
+        history.push(e.key);
+    };
+
     return (
         <div className="m-header">
-            <i className="icon-yingpinjilufangda icon iconfont"></i>
-            <ul className="link-wrapper">
-                {LinkMap.map(item => (
-                    <li key={item.link} onClick={() => props.history.push(item.link)}>
-                        {item.name}
-                    </li>
-                ))}
-            </ul>
+            <Menu mode="horizontal" selectedKeys={[selectedKey]} onClick={onClick}>
+                <Item key="/app/index">首页</Item>
+
+                <Item key="/app/intro">
+                    <i className="icon-offerfafang icon iconfont" />
+                    介绍页
+                </Item>
+            </Menu>
         </div>
     );
 }

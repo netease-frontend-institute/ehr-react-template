@@ -9,8 +9,8 @@ function IntroIndex(props) {
 
     return (
         <div className="m-intro-index">
-            介绍种类菜单
-            <ul className="link-wrapper">
+            请选择介绍类型：
+            <div className="link-wrapper">
                 {LinkMap.map(item => {
                     return (
                         <Link key={item.link} to={item.link}>
@@ -18,7 +18,7 @@ function IntroIndex(props) {
                         </Link>
                     );
                 })}
-            </ul>
+            </div>
             <Routes {...props} />
         </div>
     );
