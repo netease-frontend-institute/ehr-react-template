@@ -39,7 +39,7 @@ yarn build
 ```
 project
 │   README.md
-│   .babelrc
+│   babel.config.js
 │   .eslintrc.js
 │   .prettierrc.js
 │   .stylelintrc.js

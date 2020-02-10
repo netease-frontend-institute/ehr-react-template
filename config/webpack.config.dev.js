@@ -5,7 +5,7 @@ const HappyPack = require('happypack');
 const { CleanTerminalPlugin } = require('./tools');
 const baseWebpackConfig = require('./webpack.base');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const devServer = require('./webpackDevServer.config');
+const devServer = require('./webpack-dev-server.config');
 const paths = require('./paths');
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -27,10 +27,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(j|t)sx?$/,
                 enforce: 'pre',
                 use: 'happypack/loader?id=happyESLint',
-                include: paths.appSrc
+                include: paths.appSrc,
+                exclude: /node_modules/
             },
             {
                 oneOf: [
@@ -76,7 +77,7 @@ const webpackConfig = merge(baseWebpackConfig, {
                         sideEffects: true
                     },
                     {
-                        test: /\.(js|jsx)$/,
+                        test: /\.(j|t)sx?$/,
                         include: paths.appSrc,
                         exclude: /node_modules/,
                         use: 'happypack/loader?id=happyBabel'

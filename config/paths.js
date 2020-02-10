@@ -32,7 +32,7 @@ module.exports = {
     appPublic: resolveApp('public'),
     appHtml: resolveApp('public/index.html'),
     appFavicon: resolveApp('public/favicon.ico'),
-    appIndexJs: resolveApp('src/index.js'),
+    appIndex: resolveApp('src/index.tsx'),
     appSrc: resolveApp('src'),
     appNodeModules: resolveApp('node_modules'),
     appCss: resolveApp('src/assets/css'),

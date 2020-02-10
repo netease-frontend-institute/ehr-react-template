@@ -14,11 +14,6 @@
     "eslint": "eslint --fix --ext .js,.jsx src",
     "stylelint": "stylelint \"./src/**/*.{css,less}\" --fix"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format && npm run lint && git add ."
-    }
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -32,8 +27,13 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.8.3",
     "@babel/runtime": "^7.3.1",
     "@svgr/webpack": "2.4.1",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.0",
@@ -84,6 +84,7 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^3.0.1",
     "terser-webpack-plugin": "^1.4.1",
+    "typescript": "^3.7.5",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
     "webpack-bundle-analyzer": "^3.4.1",
@@ -96,6 +97,7 @@
     "@hot-loader/react-dom": "^16.9.0",
     "antd": "3.23.3",
     "axios": "^0.19.0",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-avatar-editor": "^11.0.7",
     "react-dom": "^16.9.0",

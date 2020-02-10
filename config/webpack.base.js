@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { isProduction } = require('./env');
 
 module.exports = {
-    entry: paths.appIndexJs,
+    entry: paths.appIndex,
     externals: {
         // 将CDN形式加载的包从打包范围中移除（业务层的引入方式不变）
         lodash: '_',
@@ -15,7 +15,7 @@ module.exports = {
     },
     resolve: {
         modules: ['node_modules', paths.appNodeModules],
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         alias: {
             '@ant-design/icons/lib/dist$': paths.antdIcon,
             '@': paths.appSrc

@@ -1,13 +1,17 @@
 module.exports = {
-    extends: ['react-app', 'eslint:recommended'],
-    parser: "babel-eslint",
+    extends: [
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'eslint:recommended'
+    ],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 6, // 指定要使用的ECMAScript6版本
         sourceType: 'module',
         ecmaFeatures: { 'jsx': true } //启用JSX
     },
 
-    plugins: ['prettier', 'react-hooks'],
+    plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
 
     rules: {
         'arrow-parens': ['error', 'as-needed'], // 箭头函数参数只有一个时，可以省略参数的括号，否则error提示
@@ -24,6 +28,14 @@ module.exports = {
 
         "react-hooks/rules-of-hooks": "error",
 
-        "react-hooks/exhaustive-deps": "warn"
+        "react-hooks/exhaustive-deps": "warn",
+
+        "react/prop-types": 'off',
+
+        '@typescript-eslint/no-unused-vars': ['error', {
+            'vars': 'all',
+            'args': 'none',
+            'ignoreRestSiblings': true,
+        }],
     }
 }
