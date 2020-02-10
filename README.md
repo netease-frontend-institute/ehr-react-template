@@ -6,12 +6,12 @@
 
 ## 种类
 ### 👨‍💼单页（Single Page Application）
- - [with TypeScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/single-page-ts)
+ - [with TypeScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/single/ts)
 
- - [with JavaScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/single-page)
+ - [with JavaScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/single/js)
 
 ### 👨‍👨‍👦‍👦多页（Multiple Pages Application）
- - [with JavaScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/multi-pages)
+ - [with JavaScript](https://github.com/netease-frontend-institute/ehr-react-template/tree/multiple/js)
  <!-- - 响应式-多页（responsive & multiple pages application）（整理中...） -->
 
 ## 已支持
