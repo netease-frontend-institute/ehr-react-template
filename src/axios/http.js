@@ -40,19 +40,7 @@ service.interceptors.response.use(
     }
 );
 
-/**
- * 四种请求方式
- * @param url       接口地址
- * @param data      接口参数（注：get后续将放入“含有params的对象”才能接到url；delete后续将放入“含有data属性的对象”才能通过payload传输）
- * @param headers   接口所需header配置
- */
-export const get = ({ url, data, headers }) => response(service.get(url, { params: data, headers }));
-export const post = ({ url, data, headers }) => response(service.post(url, data, { headers }));
-export const put = ({ url, data, headers }) => response(service.put(url, data, { headers }));
-export const del = ({ url, data, headers }) => response(service.delete(url, { data, headers }));
-
-const response = axiosObj => axiosObj.then(res => res.data).catch(err => errHandle(err));
-
+// 错误处理
 const errHandle = err => {
     // 判断上下文是“接口状态码”还是“HTTP状态码”
     let code = err.data ? err.data.code : err.response.status;
@@ -63,5 +51,18 @@ const errHandle = err => {
     code !== ServerCode.CONTINUE ? message.error(err.message) : console.error(err);
     return Promise.reject(err.data || {});
 };
+
+const response = axiosObj => axiosObj.then(res => res.data).catch(err => errHandle(err));
+
+/**
+ * 四种请求方式
+ * @param url       接口地址
+ * @param data      接口参数（注：get后续将放入“含有params的对象”才能接到url；delete后续将放入“含有data属性的对象”才能通过payload传输）
+ * @param headers   接口所需header配置
+ */
+export const get = ({ url, data, headers }) => response(service.get(url, { params: data, headers }));
+export const post = ({ url, data, headers }) => response(service.post(url, data, { headers }));
+export const put = ({ url, data, headers }) => response(service.put(url, data, { headers }));
+export const del = ({ url, data, headers }) => response(service.delete(url, { data, headers }));
 
 export default service;
