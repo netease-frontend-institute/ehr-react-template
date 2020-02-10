@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import NotFound from '@/components/common/not-found';
 import App from './App';
 
-export default () => (
+const Page = () => (
     <Router>
         <Switch>
             <Route exact path="/" render={() => <Redirect to="/app/index" push />} />
@@ -12,3 +12,5 @@ export default () => (
         </Switch>
     </Router>
 );
+
+export default Page;
