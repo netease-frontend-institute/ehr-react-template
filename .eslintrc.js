@@ -4,6 +4,12 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'eslint:recommended'
     ],
+    env: {
+        node: true,
+        browser: true,
+        commonjs: true,
+        es6: true
+    },
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 6, // 指定要使用的ECMAScript6版本
@@ -13,12 +19,21 @@ module.exports = {
 
     plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
 
+    settings: {
+        react: {
+          pragma: "React",
+          version: "detect"
+        }
+    },
+
     rules: {
         'arrow-parens': ['error', 'as-needed'], // 箭头函数参数只有一个时，可以省略参数的括号，否则error提示
 
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // 生产环境中不允许使用debugger
 
         'no-console': 'off', // 允许使用console
+
+        'no-unused-vars': 'off', // 由ts处理
 
         'react/jsx-no-target-blank': 'off', // a链接允许直接使用_blank
 
@@ -33,9 +48,20 @@ module.exports = {
         "react/prop-types": 'off',
 
         '@typescript-eslint/no-unused-vars': ['error', {
-            'vars': 'all',
-            'args': 'none',
-            'ignoreRestSiblings': true,
+            vars: 'all',
+            args: 'none',
+            ignoreRestSiblings: true
         }],
+
+        // 函数不必声明返回类型
+        '@typescript-eslint/explicit-function-return-type': [
+            'off', 
+            {
+              allowExpressions: true, 
+              allowTypedFunctionExpressions: true,
+            }
+        ],
+
+        'no-angle-bracket-type-assertion': 'none'
     }
 }
