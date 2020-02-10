@@ -9,7 +9,7 @@ import FooterCustom from '@/components/footer';
 
 const { Content } = Layout;
 
-function App(props) {
+function App() {
     let lang = 'zh'; // antd语言类型
     const locale = lang === 'zh' ? zhCN : enUS; // antd组件国际化
 
