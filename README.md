@@ -46,8 +46,8 @@ project
 │
 └───config // webpack、dll配置
 │   │   webpack.base.js
-│   │   webpack.config.dev.js
-│   │   webpack.config.prod.js
+│   │   webpack.dev.js
+│   │   webpack.prod.js
 │   │   ...
 │
 └───src // 项目源文件
