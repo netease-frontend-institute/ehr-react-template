@@ -47,6 +47,7 @@ module.exports = {
 
         "react/prop-types": 'off',
 
+        '@typescript-eslint/no-explicit-any': 'off', // 允许使用any
 
         "@typescript-eslint/interface-name-prefix": "off", // 允许interface定义以I开头
 

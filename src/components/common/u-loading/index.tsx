@@ -1,7 +1,8 @@
 import React from 'react';
 import { Skeleton } from 'antd';
+import { ULoadingProps } from './interface';
 
-const ULoading = ({ isLoading, error }) => {
+const ULoading = ({ isLoading, error }: ULoadingProps) => {
     // Handle the loading state
     if (isLoading) {
         return <Skeleton paragraph={{ rows: 24 }} active />;
