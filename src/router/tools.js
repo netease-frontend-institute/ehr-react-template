@@ -5,26 +5,31 @@
  *         1、在路由表（src/router/index.js）中配好相应的父子路由关系
  *         2、在需要使用渲染出口的父组件中使用<Routes {...props} />。（注：顶层App.js无需传props）
  *
- * 三个内部方法：
- * @function lazy 将路由组件设为懒加载
+ * 两个内部方法：
+ * @function SuspenseComponent 懒加载组件容器Suspense
  * @function findRoute 根据path，查找包括目标路由在内，及其上下级路由的信息；
- * @function getEntryName 获取当前入口信息（多页应用使用）
  *
  * 两个暴露方法：
  * @function getSubList 获取当前路由的子路由列表信息
  * @function Routes 渲染出口生成
  *
  * @date 2019-11-25
+ * @update 2020-02-11
  */
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Loadable from 'react-loadable';
 import ULoading from '@/components/common/u-loading';
 import { deepClone } from '@/utils/tools';
 import allRoutes from '@/router';
 
-const lazy = loader => Loadable({ loader, loading: ULoading });
+const SuspenseComponent = Component => props => {
+    return (
+        <Suspense fallback={<ULoading />}>
+            <Component {...props}></Component>
+        </Suspense>
+    );
+};
 
 const findRoute = (path = location.pathname.substring(location.pathname.lastIndexOf('/'))) => {
     let target = {};
@@ -42,8 +47,6 @@ const findRoute = (path = location.pathname.substring(location.pathname.lastInde
         }
     };
 
-    // let entryName = getEntryName();
-    // entryName && _findRoute(allRoutes[entryName]); // 1、拿到入口对应的路由表
     _findRoute(allRoutes); // 1、拿到入口对应的路由表
     let targetSub = target.sub || [];
 
@@ -82,7 +85,7 @@ export const Routes = props => {
         // propsFromParent包括：上一级的所有props（除了origin）
         // routeProps包括当前路由的：match、location、history
         // 所以，每个组件中的props都会包含两部分：1、来自父亲的props；2、当前的路由信息
-        return <Component {...propsFromParent} {...routeProps} />;
+        return SuspenseComponent(Component)({ ...propsFromParent, ...routeProps });
     };
 
     // 渲染路由（不设exact，约定父路由路径为子路由的前缀）
