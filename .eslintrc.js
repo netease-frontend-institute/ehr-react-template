@@ -48,6 +48,8 @@ module.exports = {
         "react/prop-types": 'off',
 
 
+        "@typescript-eslint/interface-name-prefix": "off", // 允许interface定义以I开头
+
         "@typescript-eslint/no-var-requires": "off",
 
         '@typescript-eslint/no-unused-vars': ['error', {

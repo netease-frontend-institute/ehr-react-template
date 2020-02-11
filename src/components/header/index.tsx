@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { ClickParam } from 'antd/es/menu';
+import { IProps } from './interface';
 import './index.less';
 
 const { Item } = Menu;
@@ -11,11 +13,11 @@ const getRouteName = () => {
     return entryName === '/app' ? '/app/index' : entryName;
 };
 
-function Header(props) {
+function Header(props: IProps) {
     const { history } = props;
     const [selectedKey, setSelectedKey] = useState(getRouteName());
 
-    const onClick = e => {
+    const onClick = (e: ClickParam) => {
         setSelectedKey(e.key);
 
         history.push(e.key);

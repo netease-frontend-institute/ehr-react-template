@@ -1,8 +1,9 @@
 import React from 'react';
 import UIcon from '@/components/common/u-icon';
+import { DataWrapperProps, NoDataProps } from './interface';
 import './index.less';
 
-function DataWrapper(props) {
+function DataWrapper(props: DataWrapperProps) {
     const { children, className, visibleIcon = true, iconType = 'zanwujilu', visibleEmpty, emptyText = '暂无数据' } = props;
 
     return (
@@ -12,7 +13,7 @@ function DataWrapper(props) {
     );
 }
 
-function NoData(props) {
+function NoData(props: NoDataProps) {
     const { visibleIcon, iconType, emptyText } = props;
 
     return (

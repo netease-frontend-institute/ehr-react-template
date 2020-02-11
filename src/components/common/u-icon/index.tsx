@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { UIconProps } from './interface';
 
 /**
  * use :  <UIcon type="logout"  />
@@ -7,9 +8,10 @@ import React, { Component } from 'react';
  * @params className 非必传
  * @extends {Component}
  */
-export default class UIcon extends Component {
+
+export default class UIcon extends Component<UIconProps, {}> {
     render() {
-        const { type, children, className = '', style, ...res } = this.props;
+        const { type, children, className, style = {}, ...res } = this.props;
         return (
             <span className={className + ' net-icon icon iconfont icon-' + type} style={style} {...res}>
                 {children || ''}
