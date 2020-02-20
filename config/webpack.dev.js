@@ -5,7 +5,7 @@ const HappyPack = require('happypack');
 const { CleanTerminalPlugin } = require('./tools');
 const baseWebpackConfig = require('./webpack.base');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const devServer = require('./webpackDevServer.config');
+const devServer = require('./webpack-dev-server.config');
 const paths = require('./paths');
 
 const webpackConfig = merge(baseWebpackConfig, {

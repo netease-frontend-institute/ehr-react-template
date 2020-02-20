@@ -46,8 +46,8 @@ project
 │
 └───config // webpack、dll配置
 │   │   webpack.base.js
-│   │   webpack.config.dev.js
-│   │   webpack.config.prod.js
+│   │   webpack.dev.js
+│   │   webpack.prod.js
 │   │   ...
 │
 └───src // 项目源文件
@@ -105,6 +105,7 @@ project
 ## 更新历史
 -   v1.3.0 —— 2020-02-20
     -   优化router/tools（路由信息获取）
+    -   配置文件重命名（webpack、babel、dll）
 
 -   v1.2.2 —— 2020-02-20
     -   移除Page.js
