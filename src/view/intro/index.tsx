@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Routes, { getSubList } from '@/router/tools';
+import Routes, { getRouteInfo } from '@/router/tools';
 import { Button } from 'antd';
 import './index.less';
 
-function IntroIndex(props) {
-    const LinkMap = getSubList(props);
+function IntroIndex(props: any) {
+    const { superRoute } = getRouteInfo();
 
     return (
         <div className="m-intro-index">
             请选择介绍类型：
             <div className="link-wrapper">
-                {LinkMap.map(item => {
+                {(superRoute.sub || []).map(item => {
                     return (
                         <Link key={item.link} to={item.link}>
                             <Button>{item.title}</Button>
