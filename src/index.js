@@ -1,10 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Page from './Page';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import NotFound from '@/view/not-found';
+import App from './App';
 import 'core-js'; // 兼容IE处理
 import '@/assets/iconfont/iconfont.css';
 import '@/assets/css/index.less';
 
-const render = Component => ReactDOM.render(<Component />, document.getElementById('root'));
+const Page = () => (
+    <Router>
+        <Switch>
+            <Route exact path="/" render={() => <Redirect to="/app/index" push />} />
+            <Route path="/app" component={App} />
+            <Route component={NotFound} />
+        </Switch>
+    </Router>
+);
 
-render(Page);
+ReactDOM.render(<Page />, document.getElementById('root'));
