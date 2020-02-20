@@ -2,27 +2,13 @@
 ```
 components // 公用组件文件夹
 │
-└───common // 原子组件（公用范围：其它项目也可以拿来直接使用）
+└───common // 原子组件（其它项目也可以拿来直接使用）
 │   └───u-icon
-│   │   │    Index.jsx
-│   │   │    Index.less
-│   │   ...
+│   │   │    index.jsx
+│   │   │    index.less
+│   ...
 │
-└───pc // 业务组件（公用范围：仅在当前项目内的PC端部分）
-│   │
-│   └───nav
-│   │   │    Index.jsx
-│   │   │    Index.less
-│   │   ...
-│
-└───mobile // 业务组件（公用范围：仅在当前项目内的移动端部分）
-│   │
-│   └───nav
-│   │   │    Index.jsx
-│   │   │    Index.less
-│   │   ...
-│
-└────header // 业务组件（公用范围：PC/Mobile都复用）
-│   │   Index.jsx
-│   │   Index.less
-```
+└───data-wrapper // 业务组件之一（仅在当前项目内公用）
+│   │   index.jsx
+│   │   index.less
+│   ...
