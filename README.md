@@ -103,6 +103,9 @@ project
 ```
 
 ## 更新历史
+-   v1.3.0 —— 2020-02-20
+    -   优化router/tools（路由信息获取）
+
 -   v1.2.2 —— 2020-02-20
     -   移除Page.js
     -   将not-found移至view下
