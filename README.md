@@ -48,8 +48,8 @@ project
 │
 └───config // webpack、dll配置
 │   │   webpack.base.js
-│   │   webpack.config.dev.js
-│   │   webpack.config.prod.js
+│   │   webpack.dev.js
+│   │   webpack.prod
 │   │   ...
 │
 └───src // 项目源文件
@@ -104,10 +104,10 @@ project
 ```
 
 ## 更新历史
--   v1.3.1 —— 2020-02-19
+-   v1.2.2 —— 2020-02-19
     -   新增预样式.center()
 
--   v1.3.0 —— 2020-02-06
+-   v1.2.1 —— 2020-02-06
     -   支持单入口启动
 
 -   v1.2.0 —— 2020-02-06
