@@ -1,19 +1,20 @@
 /**
  * 路由自动化配置
- * @author heshiyu
  * @desc 路由自动化配置的使用方法：
  *         1、在路由表（src/router/index.ts）中配好相应的父子路由关系
- *         2、在需要使用渲染出口的父组件中使用<Routes {...props} />。（注：顶层App.js无需传props）
+ *         2、在需要使用渲染出口的父组件中使用<Routes {...props} />。（注：顶层出口需注明origin={true}）
  *
  * 一个内部方法：
  * @function SuspenseComponent 懒加载组件容器Suspense
  *
- * 两个暴露方法：
- * @function getRouteInfo 根据指定路径，返回：当前路由信息、父路由信息、整条路由的回溯信息；
+ * 三个暴露方法：
+ * @function getRouteInfo 根据props，查找指定路由及其父路由信息；
+ * @function getRouteLine 根据path，查找当前路由在路由表中的层级关系；
  * @function Routes 渲染出口生成
  *
+ * @author heshiyu
  * @date 2019-11-25
- * @update 2020-02-19
+ * @update 2020-02-27
  */
 
 import React, { lazy, Suspense } from 'react';
@@ -25,57 +26,78 @@ import allRoutes from '@/router';
 const SuspenseComponent = Component => props => {
     return (
         <Suspense fallback={<ULoading />}>
-            <Component {...props}></Component>
+            <Component {...props} />
         </Suspense>
     );
 };
 
-export const getRouteInfo = (path = location.pathname) => {
-    let currentRoute = {}, // 当前路由
-        superRoute = { sub: allRoutes }, // 当前路由的上一级路由（默认为整张路由表的上级，无意义）
-        traceList = []; // 整条路由的回溯信息
+export const getRouteInfo = props => {
+    // matchPath：当前处理的路由所对应的path（会随渲染层级改变而改变）
+    // path：当前浏览器URL地址
+    const [matchPath, path] = [props.match.path || '', props.location.pathname];
+    const inMatchPath = matchPath === path; // 表示当前URL位于props.match.path（考虑重定向使用）
+    let targetParent = { sub: [] },
+        target = {};
 
-    const isTopRoute = path.split('/').length <= 3; // 判断当前是否为一级路径
-
-    // 递归查找“当前路由信息（currentRoute）”
-    const _findCurrent = () => {
-        let routes = isTopRoute ? allRoutes : superRoute.sub; // 若为一级路由，则将整张路由表作为范围；否则为当前路由所处的同级路由表
+    const _find = routes => {
         for (let i = 0; i < routes.length; i++) {
-            if (routes[i].link !== path) continue;
-
-            currentRoute = deepClone({ ...routes[i] });
-            traceList.push(currentRoute);
-            break;
-        }
-    };
-
-    // 递归查找“当前路由的上一级路由信息（superRoute）”
-    const _findParent = (routes = allRoutes) => {
-        let parentPath = path.slice(0, path.lastIndexOf('/')); // 获取上一级路径
-        for (let i = 0; i < routes.length; i++) {
-            // 若匹配，则深复制这个路由信息
-            if (routes[i].link === parentPath) {
-                superRoute = deepClone({ ...routes[i] });
-                traceList.push(superRoute);
-                _findCurrent();
+            if (routes[i].link === matchPath) {
+                targetParent = deepClone({ ...routes[i] });
+                target = inMatchPath ? targetParent : (targetParent.sub || []).find(route => route.link === path);
                 break;
             }
-            // 若不匹配、且当前路由还有下级路由，继续往下查找
+            // 若当前层不匹配，且当前路由还有下级路由，往下查找
             else if ((routes[i].sub || []).length) {
-                traceList.push(routes[i]);
-                _findParent(routes[i].sub);
-            } else {
-                traceList.pop();
+                _find(routes[i].sub);
             }
         }
     };
 
-    isTopRoute ? _findCurrent() : _findParent(); // 若为一级路由，仅查找当前路由信息（为了记录路由轨迹）；否则开始查找父路由
+    _find(allRoutes);
 
-    return { currentRoute, superRoute, traceList }; // 分别对应：当前路由信息、父路由信息、整条路由的回溯信息；
+    return { target, targetParent };
+};
+
+export const getRouteLine = path => {
+    let navList = [];
+
+    const _get = list => {
+        list.forEach(item => {
+            if (path.includes(item.link)) {
+                navList.push(item);
+                (item.sub || []).length && _get(item.sub || []);
+            }
+        });
+    };
+
+    _get(allRoutes);
+    return navList;
 };
 
 export const Routes = props => {
+    const _buildRoutes = () => {
+        let routes = [], // 即将要渲染的路由表
+            currentRoute, // 当前路由
+            hasRedirect, // 当前路由是否带重定向
+            fromApp = props.origin; // 是否为顶层App.js渲染
+
+        // 类型1：未指定渲染的路由（用于顶层路由App.js渲染子路由）
+        if (fromApp) {
+            // 获取整张路由表
+            routes = allRoutes;
+        }
+        // 类型2：已指定渲染的路由（用于组件内渲染子路由）
+        else {
+            let { targetParent, target } = getRouteInfo(props);
+
+            currentRoute = target; // 取当前路由，用作生成Redirect
+            hasRedirect = (currentRoute || {}).redirect;
+            routes = targetParent.sub;
+        }
+
+        return [routes, currentRoute, hasRedirect];
+    };
+
     // 渲染组件
     const _renderComponent = ({ link, redirect, component }, routeProps) => {
         let Component = lazy(deepClone(component)); // 将路由组件设为懒加载
@@ -89,13 +111,9 @@ export const Routes = props => {
     // 渲染路由（不设exact，约定父路由路径为子路由的前缀）
     const _renderRoute = r => <Route key={r.link} path={r.link} render={routeProps => _renderComponent(r, routeProps)} />;
 
-    const fromApp = props.origin;
-    const { currentRoute, superRoute } = getRouteInfo();
-    const routes = fromApp ? allRoutes : superRoute.sub; // 若为顶层路由，则渲染整张路由表；否则渲染当前路由所处的同级路由表
-    const hasRedirect = !fromApp && currentRoute.redirect; // 是否有重定向（仅当非顶层路由时）
-
-    const myRedirect = hasRedirect && <Route exact path={currentRoute.link} render={() => <Redirect to={currentRoute.redirect} push />} />;
-    const myRoutes = <Switch>{routes.map(r => _renderRoute(r))}</Switch>;
+    let [routes, currentRoute, hasRedirect] = _buildRoutes();
+    let myRoutes = <Switch>{routes.map(r => _renderRoute(r))}</Switch>;
+    let myRedirect = hasRedirect && <Route exact path={currentRoute.link} render={() => <Redirect to={currentRoute.redirect} push />} />;
 
     return (
         <Switch>

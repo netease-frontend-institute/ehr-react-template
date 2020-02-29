@@ -5,13 +5,13 @@ import { Button } from 'antd';
 import './index.less';
 
 function IntroIndex(props) {
-    const { superRoute } = getRouteInfo();
+    const { targetParent } = getRouteInfo(props);
 
     return (
         <div className="m-intro-index">
             请选择介绍类型：
             <div className="link-wrapper">
-                {(superRoute.sub || []).map(item => {
+                {(targetParent.sub || []).map(item => {
                     return (
                         <Link key={item.link} to={item.link}>
                             <Button>{item.title}</Button>
