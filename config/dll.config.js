@@ -5,6 +5,7 @@ const path = require('path');
 const paths = require('./paths');
 
 module.exports = {
+    devtool: 'cheap-module-eval-source-map',
     entry: {
         react: ['react', 'react-router-dom', 'react-dom'],
         antd: ['antd'] // 开发环境才会真正使用到这个dll

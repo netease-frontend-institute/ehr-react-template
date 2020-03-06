@@ -105,6 +105,7 @@ project
 ## 更新历史
 -   v1.4.0—— 2020-03-06
     -   更新react(16.12.0)、antd(4.0.0)
+    -   调整dll的生成source模式（导致控制台DevTools failed...提示）
 
 -   v1.3.1—— 2020-02-29
     -   修复router/tools两级以上出现渲染循环问题
