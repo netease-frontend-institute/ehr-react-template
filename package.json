@@ -10,9 +10,11 @@
     "dll": "webpack --config config/dll.config.js --mode=development --progress",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "format": "prettier --write \"./src/**/*.{js,jsx,json}\"",
-    "lint": "run-p eslint stylelint",
-    "eslint": "eslint --fix --ext .js,.jsx src",
-    "stylelint": "stylelint \"./src/**/*.{css,less}\" --fix"
+    "tslint": "tsc --noEmit",
+    "tslint:watch": "tsc --noEmit -w",
+    "eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
+    "stylelint": "stylelint \"./src/**/*.{css,less}\" --fix",
+    "lint": "run-p tslint eslint stylelint"
   },
   "keywords": [],
   "author": "",
