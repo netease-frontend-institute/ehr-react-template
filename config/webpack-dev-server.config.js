@@ -7,9 +7,6 @@ module.exports = {
     historyApiFallback: {
         rewrites: { from: /^\/index/, to: `/index.html` }
     },
-    before() {
-        console.clear();
-    },
     proxy: {
         '/mock/dev': {
             target: 'http://10.171.160.65:8800',
