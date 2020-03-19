@@ -1,5 +1,4 @@
 // 全局都会用到的常量
-
 export const LIMIT = 100;
 
 // 签到状态Id
