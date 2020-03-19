@@ -2,7 +2,6 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
-const { CleanTerminalPlugin } = require('./tools');
 const baseWebpackConfig = require('./webpack.base');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const devServer = require('./webpack-dev-server.config');
@@ -100,9 +99,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ]
     },
     plugins: [
-        new CleanTerminalPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
 
         // 引用DLL
         new webpack.DllReferencePlugin(

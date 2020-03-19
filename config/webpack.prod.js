@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -27,7 +27,7 @@ const webpackConfig = smp.wrap(
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
+                    test: /\.(j|t)sx?$/,
                     enforce: 'pre',
                     use: [
                         {
@@ -84,7 +84,7 @@ const webpackConfig = smp.wrap(
                             sideEffects: true
                         },
                         {
-                            test: /\.(js|jsx)$/,
+                            test: /\.(j|t)sx?$/,
                             include: paths.appSrc,
                             exclude: /node_modules/,
                             loader: require.resolve('babel-loader'),
@@ -127,7 +127,7 @@ const webpackConfig = smp.wrap(
         },
         plugins: [
             new CleanWebpackPlugin(),
-            new BundleAnalyzerPlugin(),
+            // new BundleAnalyzerPlugin(),
             new MiniCssExtractPlugin({
                 filename: 'static/css/[name].[contenthash:8].css',
                 chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
