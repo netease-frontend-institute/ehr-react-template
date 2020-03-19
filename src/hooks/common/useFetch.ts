@@ -7,28 +7,33 @@
  * dispatch：手动触发请求
  */
 import { useState, useEffect, useCallback } from 'react';
+import { RequestConfig, ResponseConfig } from '@/axios/interface';
 
+interface UseFetchResult<R> {
+    data: R | undefined;
+    isLoading: boolean;
+    dispatch: (params?: any) => Promise<R>;
+}
 /**
  * @param {fuction} url 请求方法
  * @param {obj}} params 请求参数
  * @param {bool} isImmediately 是否立即执行
  */
-const useFetch = (url, params, isImmediately = true) => {
-    const [data, setData] = useState();
+function useFetch<R>(url: (req: RequestConfig) => Promise<R>, params?: any, isImmediately = true): UseFetchResult<R> {
+    const [data, setData] = useState<R | undefined>();
     const [isLoading, setIsLoading] = useState(false);
 
     // 接口请求
-    const fetch = (url, params) => {
+    const fetch = (url: (req: RequestConfig) => Promise<R>, params?: any): Promise<R> => {
         setIsLoading(true);
-
         return new Promise((resolve, reject) => {
             url(params)
-                .then(data => {
+                .then((data: R) => {
                     setData(data);
                     resolve(data);
                 })
-                .catch(err => {
-                    setData(err);
+                .catch((err: ResponseConfig<R>) => {
+                    // setData(err);
                     reject(err);
                 })
                 .finally(() => setIsLoading(false));
@@ -46,6 +51,7 @@ const useFetch = (url, params, isImmediately = true) => {
     }, [params, url, isImmediately]);
 
     return { data, isLoading, dispatch };
-};
+    // return [ data, isLoading, dispatch ];
+}
 
 export default useFetch;

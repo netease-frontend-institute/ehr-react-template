@@ -3,11 +3,9 @@ import { Layout, ConfigProvider, BackTop } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
 import { hot } from 'react-hot-loader/root';
-import { Routes } from '@/router/tools';
 import HeaderCustom from '@/components/header';
+import ContentCustom from '@/components/content';
 import FooterCustom from '@/components/footer';
-
-const { Content } = Layout;
 
 function App() {
     let lang = 'zh'; // antd语言类型
@@ -17,9 +15,7 @@ function App() {
         <Layout>
             <ConfigProvider locale={locale}>
                 <HeaderCustom />
-                <Content>
-                    <Routes origin />
-                </Content>
+                <ContentCustom />
                 <FooterCustom />
                 <BackTop />
             </ConfigProvider>
