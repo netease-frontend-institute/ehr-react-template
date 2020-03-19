@@ -3,6 +3,7 @@ export const isDev = process.env.NODE_ENV === 'development';
 export const isMock = false;
 export const isTest = true;
 export const rootURL = isDev ? (isMock ? '/mock' : isTest ? '/mock/test' : '/mock/dev') : '';
+export const gateWay = isDev && isMock ? '' : '/api/e5s'; // 本地且mock时，不需网关
 
 // 以下3个“环境变量”用于部署后的判断
 export const isDevEnvironment = /campus.dev.163/g.test(window.location.href);
