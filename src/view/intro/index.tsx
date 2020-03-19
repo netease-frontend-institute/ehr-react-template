@@ -11,7 +11,7 @@ function IntroIndex(props: any) {
         <div className="m-intro-index">
             请选择介绍类型：
             <div className="link-wrapper">
-                {(targetParent.sub || []).map(item => {
+                {(targetParent.sub || []).map((item: any) => {
                     return (
                         <Link key={item.link} to={item.link}>
                             <Button>{item.title}</Button>
