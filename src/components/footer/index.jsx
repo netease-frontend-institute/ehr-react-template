@@ -5,7 +5,7 @@ import './index.less';
 function Footer(props) {
     return (
         <div className="m-footer">
-            <span>A project template for React v16.9.0 © Ehr FED</span>
+            <span>EHR前端模板（单页/js）React v16.9.0 © Ehr FED</span>
         </div>
     );
 }
