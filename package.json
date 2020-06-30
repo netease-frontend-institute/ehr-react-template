@@ -9,15 +9,22 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --open --config config/webpack.dev.js",
     "dll": "webpack --config config/dll.config.js --mode=development --progress",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "format": "prettier --write \"./src/**/*.{js,jsx,json}\"",
     "lint": "run-p eslint stylelint",
     "eslint": "eslint --fix --ext .js,.jsx src",
     "stylelint": "stylelint \"./src/**/*.{css,less}\" --fix"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && npm run lint && git add ."
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "eslint --fix --ext .js,.jsx"
+    ],
+    "src/**/*.{css,less}": [
+      "stylelint --fix .css,.less"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -64,6 +71,7 @@
     "husky": "^3.0.2",
     "less": "2.7.2",
     "less-loader": "^4.1.0",
+    "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.8.0",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
