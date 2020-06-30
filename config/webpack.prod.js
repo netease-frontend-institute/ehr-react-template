@@ -27,20 +27,6 @@ const webpackConfig = smp.wrap(
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
-                    enforce: 'pre',
-                    use: [
-                        {
-                            options: {
-                                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                                eslintPath: require.resolve('eslint')
-                            },
-                            loader: require.resolve('eslint-loader')
-                        }
-                    ],
-                    include: paths.appSrc
-                },
-                {
                     oneOf: [
                         {
                             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
@@ -198,7 +184,7 @@ const webpackConfig = smp.wrap(
                 })
             ],
             splitChunks: {
-                chunks: 'async',
+                chunks: 'all',
                 minSize: 30000,
                 minChunks: 1,
                 maxAsyncRequests: 5,
@@ -208,7 +194,7 @@ const webpackConfig = smp.wrap(
                     // 抽离各入口之间可共享的所有代码
                     commons: {
                         name: 'commons',
-                        chunks: 'initial', // 共有三个值可选：initial(动态模块)、async(非动态模块)和all(全部模块)
+                        chunks: 'all', // 共有三个值可选：initial(动态模块)、async(非动态模块)和all(全部模块)
                         minChunks: 2, // 模块被引用>=2次，便分割
                         maxInitialRequests: 5, // 一个入口并发加载的chunk数量<=3
                         minSize: 0
@@ -223,7 +209,7 @@ const webpackConfig = smp.wrap(
                     vendor: {
                         name: 'vendor',
                         test: /node_modules\/(.*)\.js/, // 表示拆分node_modules中的模块
-                        chunks: 'initial',
+                        chunks: 'all',
                         priority: 10,
                         reuseExistingChunk: false
                         // enforce: true

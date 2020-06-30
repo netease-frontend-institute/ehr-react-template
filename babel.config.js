@@ -3,7 +3,7 @@ module.exports = {
         [
             '@babel/preset-env',
             {
-                modules: false,
+                modules: false, // 关闭babel的模块转换，才能使用Webpack的Tree-Shaking功能
                 targets: {
                     browsers: ['>1%', 'last 2 versions', 'safari >= 7']
                 }
